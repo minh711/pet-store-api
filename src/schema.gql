@@ -2,15 +2,18 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Owner {
+  id: Int!
+  name: String!
+  pets: [Pet!]
+}
+
 type Pet {
   id: Int!
   name: String!
   type: String
-}
-
-type Owner {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  ownerId: Int!
+  owner: Owner!
 }
 
 type Query {
@@ -23,22 +26,14 @@ type Query {
 type Mutation {
   createPet(createPetInput: CreatePetInput!): Pet!
   createOwner(createOwnerInput: CreateOwnerInput!): Owner!
-  updateOwner(updateOwnerInput: UpdateOwnerInput!): Owner!
-  removeOwner(id: Int!): Owner!
 }
 
 input CreatePetInput {
   name: String!
   type: String
+  ownerId: Int!
 }
 
 input CreateOwnerInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateOwnerInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  name: String!
 }
