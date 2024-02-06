@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { PetsService } from './pets.service';
 import { Pet } from './pet.entity';
 import { CreatePetInput } from './dto/create-pet.input';
@@ -6,6 +6,11 @@ import { CreatePetInput } from './dto/create-pet.input';
 @Resolver(() => Pet) // of => Pet
 export class PetsResolver {
   constructor(private petsService: PetsService) {}
+
+  @Query(() => Pet)
+  getPet(@Args('id', { type: () => Int }) id: number): Promise<Pet> {
+    return this.petsService.findOne(id);
+  }
 
   @Query(() => [Pet]) // returns => [Pet]
   pets(): Promise<Pet[]> {
